@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .bs-example {
+            margin-top: 20px;
+            background-color: white;
+            height: 1000px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+<div th:insert="fragments/authheader :: authheader"></div>
+
+<div class="row m-0">
+    <div class="col-2 p-0 bg-white">
+        <div class="bs-example">
+            <div class="list-group">
+                <div sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{/admin/}" class="list-group-item list-group-item-action border-0"><span class="ml-3">Admin</span></a>
+                </div>
+                <a th:href="@{/user}" class="list-group-item list-group-item-action active border-0"><span class="ml-3">User</span> </a>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-10 p-0 bg-light">
+        <div class="bg-light">
+            <h1 class="pt-3 pl-4">User information-page</h1>
+
+            <div class="col-12 pl-4 pr-5 pt-3">
+                <div class="list-group">
+                    <div class="list-group-item bg-light"><b class="h5">About user</b></a></div>
+                    <div class="p-4 bg-white">
+                        <table class="table table-striped bg-white">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Age</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <td th:text="${user.id}"></td>
+                            <td th:text="${user.firstname}"></td>
+                            <td th:text="${user.lastname}"></td>
+                            <td th:text="${user.age}"></td>
+                            <td th:text="${user.email}"></td>
+                            <td>
+                                <th:block th:each="role : ${user.roles}">
+                                    <th:block th:with="roles=${role.name}">
+                                        <span th:text="${role.name}"></span>
+                                    </th:block>
+                                </th:block>
+                            </td>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

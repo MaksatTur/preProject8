@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="authheader">
+    <nav class="navbar bg-dark navbar-dark">
+        <ul class="navbar-nav">
+            <span class="navbar-text">
+                <b class="h5 text-light" th:text="${email}"></b>
+                <b class="h5 text-light">with roles:</b>
+                <th:block th:each="role : ${userRoles}">
+                        <b class="h5 text-light" th:text="${role.name}"></b>
+                </th:block>
+            </span>
+        </ul>
+        <a class="nav-link text-secondary" th:href="@{/logout}">Logout</a>
+    </nav>
+</div>
+</html>

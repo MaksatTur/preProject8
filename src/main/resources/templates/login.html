@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<div class="container">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4 mt-5" >
+            <h3 class="text-left"><b>Please sign in</b></h3>
+            <form action="/login" method="post">
+                <input type="text" class="form-control" name="j_username" placeholder="Email address" required="required">
+                <input type="password" class="form-control" name="j_password" placeholder="Password" required="required">
+                <button type="submit" class="btn btn-primary btn-block mt-2"><b>Sign in</b></button>
+            </form>
+        </div>
+        <div class="col-4"></div>
+    </div>
+
+</div>
+</html>

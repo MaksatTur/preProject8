@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin panel</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/main.js}" src="../static/js/main.js"></script>
+    <style>
+        .bs-example {
+            margin-top: 20px;
+            background-color: white;
+            height: 1000px;
+        }
+    </style>
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="50" class="bg-light">
+
+<!-- The edit modal -->
+<div class="eModal">
+    <form th:action="@{/admin/edit}" th:method="post">
+        <div class="modal fade" id="editModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit user</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body row">
+                        <div class="col-3"></div>
+                        <div class="col-6">
+                            <table class="table table-striped bg-white">
+                                <div class="form-group text-center pt-3">
+                                    <span class="text-center"><b>Id</b></span>
+                                    <input type="text" class="form-control" name="id" id="e_id" readonly="readonly"/>
+                                    <!--input type="text" readonly="readonly" class="form-control" id="id" value="1"-->
+                                </div>
+
+                                <div class="form-group text-center pt-3">
+                                    <span class="text-center"><b>First name</b></span>
+                                    <input type="text" class="form-control" name="firstname" id="e_firstname"
+                                           placeholder="Enter first name"
+                                           required="required">
+                                </div>
+
+                                <div class="form-group text-center pt-1">
+                                    <span class="text-center"><b>Last name</b></span>
+                                    <input type="text" class="form-control" name="lastname" id="e_lastname"
+                                           placeholder="Enter last name"
+                                           required="required">
+                                </div>
+
+                                <div class="form-group text-center pt-1">
+                                    <span class="text-center"><b>Age</b></span>
+                                    <input type="number" class="form-control" name="age" id="e_age" placeholder="Enter age"
+                                           required="required">
+                                </div>
+
+                                <div class="form-group text-center pt-1">
+                                    <span class="text-center"><b>Email</b></span>
+                                    <input type="email" class="form-control" name="email" id="e_email" placeholder="Enter email"
+                                           required="required">
+                                </div>
+
+                                <div class="form-group text-center pt-1">
+                                    <span class="text-center"><b>Password</b></span>
+                                    <input type="password" class="form-control" name="password" id="e_password">
+                                </div>
+
+                                <div class="form-group text-center pt-1">
+                                    <span class="text-center"><b>Roles</b></span>
+                                    <select class="form-control form-control-range" size="2" multiple="true"
+                                            name="roles" required="required">
+                                        <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+                                    </select>
+                                </div>
+                            </table>
+                            <div class="col-3"></div>
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Edit"/>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- The delete modal -->
+<div class="dModal">
+    <div class="modal fade" id="deleteModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form th:action="@{/admin/delete}" th:method="post">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Delete user</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body row">
+                        <div class="col-3"></div>
+                        <div class="col-6">
+
+                            <table class="table table-striped bg-white">
+                                <div class="form-group text-center pt-3">
+                                    <span class="text-center"><b>Id</b></span>
+                                    <input type="text" class="form-control" name="id" id="d_id" readonly="readonly"/>
+                                </div>
+
+                                <div class="form-group text-center pt-3">
+                                    <span class="text-center"><b>First name</b></span>
+                                    <input type="email" class="form-control" name="firstname" id="d_firstname"
+                                           readonly="readonly"/>
+                                </div>
+
+                                <div class="form-group text-center pt-1">
+                                    <span class="text-center"><b>Last name</b></span>
+                                    <input type="text" class="form-control" name="lastname" id="d_lastname"
+                                           readonly="readonly"/>
+                                </div>
+
+                                <div class="form-group text-center pt-1">
+                                    <span class="text-center"><b>Age</b></span>
+                                    <input type="text" class="form-control" name="age" id="d_age" readonly="readonly"/>
+                                </div>
+
+                                <div class="form-group text-center pt-1">
+                                    <span class="text-center"><b>Email</b></span>
+                                    <input type="email" class="form-control" name="email" id="d_email"
+                                           readonly="readonly"/>
+                                </div>
+
+                                <div class="form-group text-center pt-1">
+                                    <span class="text-center"><b>Roles</b></span>
+                                    <select class="form-control form-control-range" size="2" multiple="true"
+                                            name="roles" readonly="readonly">
+                                        <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+                                    </select>
+                                </div>
+                            </table>
+                            <div class="col-3"></div>
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-danger" value="Delete"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:insert="fragments/authheader :: authheader"></div>
+
+<div class="row m-0">
+    <div class="col-2 p-0 bg-white">
+        <div class="bs-example">
+            <div class="list-group">
+                <a th:href="@{/admin/}" class="list-group-item list-group-item-action active border-0"><span
+                        class="ml-3">Admin</span></a>
+                <a th:href="@{/user}" class="list-group-item list-group-item-action border-0"><span
+                        class="ml-3">User</span> </a>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-10 p-0 bg-light">
+        <div class="bg-light">
+            <h1 class="pt-3 pl-4">Admin panel</h1>
+
+            <div class="col-12 pl-4 pr-5 pt-3">
+                <nav class="nav nav-tabs">
+                    <a th:href="@{/admin/}" class="nav-item nav-link active">
+                        Users table
+                    </a>
+                    <a th:href="@{/admin/add}" class="nav-item nav-link">
+                        New User
+                    </a>
+                </nav>
+                <div class="list-group">
+                    <div class="list-group-item bg-light"><b class="h5">All users</b></a></div>
+                    <div class="p-4 bg-white">
+                        <table class="table table-striped bg-white">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Age</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <div sec:authorize="hasRole('ADMIN')">
+                                    <th>Edit</th>
+                                </div>
+                                <div sec:authorize="hasRole('ADMIN')">
+                                    <th>Delete</th>
+                                </div>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <th:block th:each="user: ${users}">
+                                <tr>
+                                    <td th:text="${user.id}"></td>
+                                    <td th:text="${user.firstname}"></td>
+                                    <td th:text="${user.lastname}"></td>
+                                    <td th:text="${user.age}"></td>
+                                    <td th:text="${user.email}"></td>
+                                    <td>
+                                        <th:block th:each="role : ${user.roles}">
+                                            <th:block th:with="roles=${role.name}">
+                                                <span th:text="${role.name}"></span>
+                                            </th:block>
+                                        </th:block>
+                                    </td>
+                                    <div sec:authorize="hasRole('ADMIN')">
+                                        <td>
+                                            <a th:href="@{/admin/findOne/(id=${user.id})}" class="btn btn-info eBtn">Edit</a>
+                                        </td>
+                                    </div>
+                                    <div sec:authorize="hasRole('ADMIN')">
+                                        <td>
+                                            <a th:href="@{/admin/findOne/(id=${user.id})}" class="btn btn-danger dBtn">Delete</a>
+                                        </td>
+                                    </div>
+                                </tr>
+                            </th:block>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
